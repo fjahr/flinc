@@ -27,3 +27,10 @@ import_config "#{Mix.env}.exs"
 config :phoenix, :generators,
   migration: true,
   binary_id: false
+
+config :guardian, Guardian,
+  issuer: "Flinc",
+  ttl: { 3, :days },
+  verify_issuer: true,
+  secret_key: System.get_env("GUARDIAN_SECRET"),
+  serializer: Flinc.GuardianSerializer
