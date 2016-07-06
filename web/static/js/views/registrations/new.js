@@ -32,7 +32,9 @@ class RegistrationsNew extends React.Component {
       <div className="view-container registrations new">
         <main>
           <header>
-            <div className="logo" />
+            <div className="logo">
+              flinc.io
+            </ div>
           </header>
           <form onSubmit={::this._handleSubmit}>
             <div className="field">

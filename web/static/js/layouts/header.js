@@ -128,7 +128,9 @@ class Header extends React.Component {
           </ul>
         </nav>
         <Link to='/'>
-          <span className='logo'/>
+          <span className='logo'>
+            flinc.io
+          </ span>
         </Link>
         <nav className="right">
           <ul>

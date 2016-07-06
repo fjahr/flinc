@@ -398,7 +398,7 @@ html {
             margin-bottom: 0; }
 
 body {
-  background: #89609E; }
+  background: #fff; }
 
 .tag.green {
   background: #61bd4f; }
@@ -922,7 +922,7 @@ form .error, .form .error {
   position: relative; }
   .boards.show .view-header h3 {
     margin: 0;
-    color: #fff; }
+    color: #000; }
   .boards.show .view-header .board-users {
     -webkit-transform: translateY(-50%);
     -moz-transform: translateY(-50%);
@@ -958,7 +958,7 @@ form .error, .form .error {
         opacity: 1;
         display: block;
         position: relative;
-        border: 1px solid rgba(255, 255, 255, 0.5);
+        border: 1px solid rgba(0, 0, 0, 0.9);
         color: rgba(255, 255, 255, 0.5);
         line-height: 1em;
         font-size: .9em; }
