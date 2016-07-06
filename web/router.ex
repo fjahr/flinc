@@ -11,12 +11,9 @@ defmodule Flinc.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-  end
 
-  scope "/", Flinc do
-    pipe_through :browser # Use the default browser stack
-
-    get "*path", PageController, :index
+    plug Guardian.Plug.VerifyHeader
+    plug Guardian.Plug.LoadResource
   end
 
   scope "/api", Flinc do
@@ -24,6 +21,21 @@ defmodule Flinc.Router do
 
     scope "/v1" do
       post "/registrations", RegistrationController, :create
+
+      post "/sessions", SessionController, :create
+      delete "/sessions", SessionController, :delete
+
+      get "/current_user", CurrentUserController, :show
+
+      resources "boards", BoardController, only: [:index, :create] do
+        resources "cards", CardController, only: [:show]
+      end
     end
+  end
+
+  scope "/", Flinc do
+    pipe_through :browser # Use the default browser stack
+
+    get "*path", PageController, :index
   end
 end

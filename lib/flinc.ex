@@ -13,6 +13,7 @@ defmodule Flinc do
       supervisor(Flinc.Repo, []),
       # Here you could define other workers and supervisors as children
       # worker(Flinc.Worker, [arg1, arg2, arg3]),
+      supervisor(Flinc.BoardChannel.Supervisor, []),
     ]
 
     # See http://elixir-lang.org/docs/stable/elixir/Supervisor.html

@@ -36,19 +36,19 @@ class RegistrationsNew extends React.Component {
           </header>
           <form onSubmit={::this._handleSubmit}>
             <div className="field">
-              <input ref="lastName" type="text" placeholder="Name" required={true} />
+              <input ref="name" id="user_name" type="text" placeholder="Name" required={true} />
               {renderErrorsFor(errors, 'name')}
             </div>
             <div className="field">
-              <input ref="email" type="email" placeholder="Email" required={true} />
+              <input ref="email" id="user_email" type="email" placeholder="Email" required={true} />
               {renderErrorsFor(errors, 'email')}
             </div>
             <div className="field">
-              <input ref="password" type="password" placeholder="Password" required={true} />
+              <input ref="password" id="user_password" type="password" placeholder="Password" required={true} />
               {renderErrorsFor(errors, 'password')}
             </div>
             <div className="field">
-              <input ref="passwordConfirmation" type="password" placeholder="Confirm password" required={true} />
+              <input ref="passwordConfirmation" id="user_password_confirmation" type="password" placeholder="Confirm password" required={true} />
               {renderErrorsFor(errors, 'password_confirmation')}
             </div>
             <button type="submit">Sign up</button>

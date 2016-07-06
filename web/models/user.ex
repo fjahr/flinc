@@ -1,6 +1,8 @@
 defmodule Flinc.User do
   use Flinc.Web, :model
 
+  alias Flinc.{Board, UserBoard}
+
   @derive {Poison.Encoder, only: [:id, :name, :email]}
 
   schema "users" do
@@ -8,6 +10,10 @@ defmodule Flinc.User do
     field :email, :string
     field :password, :string, virtual: true
     field :encrypted_password, :string
+
+    has_many :owned_boards, Board
+    has_many :user_boards, UserBoard
+    has_many :boards, through: [:user_boards, :board]
 
     timestamps
   end
