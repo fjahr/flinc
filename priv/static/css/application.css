@@ -791,7 +791,6 @@ form .error, .form .error {
                 background: #dee1e3; }
 
 .sessions.new, .registrations.new {
-  background: #89609E;
   background-size: cover;
   position: relative;
   height: 100%; }
@@ -830,18 +829,18 @@ form .error, .form .error {
       -moz-transition: all 0.15s ease-out 0s;
       transition: all 0.15s ease-out 0s;
       background: transparent;
-      color: #fff;
-      border: 1px solid #fff; }
+      color: #000;
+      border: 1px solid #000; }
       .sessions.new form button:hover, .registrations.new form button:hover {
-        color: #89609E;
+        color: #000;
         background: #fff; }
   .sessions.new a, .registrations.new a {
     -webkit-transition: all 0.15s ease-out 0s;
     -moz-transition: all 0.15s ease-out 0s;
     transition: all 0.15s ease-out 0s;
-    color: rgba(255, 255, 255, 0.5); }
+    color: rgba(0, 0, 0, 0.5); }
     .sessions.new a:hover, .registrations.new a:hover {
-      color: #fff; }
+      color: #000; }
 
 .boards.index {
   overflow-y: scroll; }
