@@ -32,7 +32,6 @@ defmodule Flinc.User do
     |> cast(params, @required_fields, @optional_fields)
     |> validate_format(:email, ~r/@/)
     |> validate_length(:password, min: 5)
-    |> validate_confirmation(:password, message: "Password does not match")
     |> unique_constraint(:email, message: "Email already taken")
     |> generate_encrypted_password
   end

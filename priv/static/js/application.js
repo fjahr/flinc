@@ -32758,8 +32758,7 @@
 	      var data = {
 	        name: this.refs.name.value,
 	        email: this.refs.email.value,
-	        password: this.refs.password.value,
-	        password_confirmation: this.refs.passwordConfirmation.value
+	        password: this.refs.password.value
 	      };
 
 	      dispatch(_registrations2.default.signUp(data));
@@ -32805,12 +32804,6 @@
 	              { className: 'field' },
 	              _react2.default.createElement('input', { ref: 'password', id: 'user_password', type: 'password', placeholder: 'Password', required: true }),
 	              (0, _utils.renderErrorsFor)(errors, 'password')
-	            ),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'field' },
-	              _react2.default.createElement('input', { ref: 'passwordConfirmation', id: 'user_password_confirmation', type: 'password', placeholder: 'Confirm password', required: true }),
-	              (0, _utils.renderErrorsFor)(errors, 'password_confirmation')
 	            ),
 	            _react2.default.createElement(
 	              'button',

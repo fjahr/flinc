@@ -19,7 +19,6 @@ class RegistrationsNew extends React.Component {
       name: this.refs.name.value,
       email: this.refs.email.value,
       password: this.refs.password.value,
-      password_confirmation: this.refs.passwordConfirmation.value,
     };
 
     dispatch(Actions.signUp(data));
@@ -48,10 +47,6 @@ class RegistrationsNew extends React.Component {
             <div className="field">
               <input ref="password" id="user_password" type="password" placeholder="Password" required={true} />
               {renderErrorsFor(errors, 'password')}
-            </div>
-            <div className="field">
-              <input ref="passwordConfirmation" id="user_password_confirmation" type="password" placeholder="Confirm password" required={true} />
-              {renderErrorsFor(errors, 'password_confirmation')}
             </div>
             <button type="submit">Sign up</button>
           </form>
