@@ -26,10 +26,10 @@ defmodule Flinc.ErrorHelpers do
     #
     #     dngettext "errors", "1 file", "%{count} files", count
     #
-    Gettext.dngettext(Flinc.Gettext, "errors", msg, msg, opts[:count], opts)
-  end
-
-  def translate_error(msg) do
-    Gettext.dgettext(Flinc.Gettext, "errors", msg)
+    if count = opts[:count] do
+      Gettext.dngettext(Flinc.Gettext, "errors", msg, msg, count, opts)
+    else
+      Gettext.dgettext(Flinc.Gettext, "errors", msg, opts)
+    end
   end
 end

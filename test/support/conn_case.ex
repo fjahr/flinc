@@ -21,11 +21,12 @@ defmodule Flinc.ConnCase do
       use Phoenix.ConnTest
 
       alias Flinc.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Model, except: [build: 2]
+      import Ecto.Query, only: [from: 2]
 
       import Flinc.Router.Helpers
+
+      import Flinc.Factory
 
       # The default endpoint for testing
       @endpoint Flinc.Endpoint
@@ -33,10 +34,12 @@ defmodule Flinc.ConnCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Flinc.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Flinc.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Flinc.Repo, {:shared, self()})
     end
 
-    {:ok, conn: Phoenix.ConnTest.conn()}
+    {:ok, conn: Phoenix.ConnTest.build_conn()}
   end
 end

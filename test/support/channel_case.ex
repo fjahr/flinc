@@ -21,9 +21,8 @@ defmodule Flinc.ChannelCase do
       use Phoenix.ChannelTest
 
       alias Flinc.Repo
-      import Ecto
-      import Ecto.Changeset
-      import Ecto.Query, only: [from: 1, from: 2]
+      import Ecto.Model
+      import Ecto.Query, only: [from: 2]
 
 
       # The default endpoint for testing
@@ -32,8 +31,10 @@ defmodule Flinc.ChannelCase do
   end
 
   setup tags do
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(Flinc.Repo)
+
     unless tags[:async] do
-      Ecto.Adapters.SQL.restart_test_transaction(Flinc.Repo, [])
+      Ecto.Adapters.SQL.Sandbox.mode(Flinc.Repo, {:shared, self()})
     end
 
     :ok

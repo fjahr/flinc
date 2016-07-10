@@ -36,4 +36,8 @@ defmodule Flinc.Endpoint do
     signing_salt: "gxxkBBpZ"
 
   plug Flinc.Router
+
+  if Application.get_env(:flinc, :sql_sandbox) do
+    plug Phoenix.Ecto.SQL.Sandbox
+  end
 end

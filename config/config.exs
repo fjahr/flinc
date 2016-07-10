@@ -41,4 +41,13 @@ config :guardian, Guardian,
     "x" => "AL0H8OvP5NuboUoj8Pb3zpBcDyEJN907wMxrCy7H2062i3IRPF5NQ546jIJU3uQX5KN2QB_Cq6R_SUqyVZSNpIfC",
     "y" => "ALdxLuo6oKLoQ-xLSkShv_TA0di97I9V92sg1MKFava5hKGST1EKiVQnZMrN3HO8LtLT78SNTgwJSQHAXIUaA-lV"
   },
-  serializer: Flinc.GuardianSerializer
+  serializer: Flinc.GuardianSerializer,
+  hooks: GuardianDb
+
+config :hound, driver: "chrome_driver"
+
+config :guardian_db, GuardianDb,
+  repo: Flinc.Repo,
+  sweep_interval: 1440
+
+config :flinc, ecto_repos: [Flinc.Repo]

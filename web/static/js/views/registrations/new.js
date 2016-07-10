@@ -35,7 +35,7 @@ class RegistrationsNew extends React.Component {
               flinc.io
             </ div>
           </header>
-          <form onSubmit={::this._handleSubmit}>
+          <form id="sign_up_form" onSubmit={::this._handleSubmit}>
             <div className="field">
               <input ref="name" id="user_name" type="text" placeholder="Name" required={true} />
               {renderErrorsFor(errors, 'name')}

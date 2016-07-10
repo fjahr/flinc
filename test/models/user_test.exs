@@ -1,9 +1,14 @@
 defmodule Flinc.UserTest do
-  use Flinc.ModelCase
+  use Flinc.ModelCase, async: true
 
   alias Flinc.User
 
-  @valid_attrs %{email: "some content", encrypted_password: "some content", name: "some content"}
+  @valid_attrs %{
+    encrypted_password: "some content",
+    email: "email@email.com",
+    name: "some content",
+    password: "123456"
+  }
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do

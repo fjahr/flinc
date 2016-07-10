@@ -1,6 +1,5 @@
-ExUnit.start
+{:ok, _} = Application.ensure_all_started(:hound)
 
-Mix.Task.run "ecto.create", ~w(-r Flinc.Repo --quiet)
-Mix.Task.run "ecto.migrate", ~w(-r Flinc.Repo --quiet)
-Ecto.Adapters.SQL.begin_test_transaction(Flinc.Repo)
+ExUnit.start()
 
+Ecto.Adapters.SQL.Sandbox.mode(Flinc.Repo, :manual)

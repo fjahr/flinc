@@ -27,8 +27,8 @@ defmodule Flinc.Router do
 
       get "/current_user", CurrentUserController, :show
 
-      resources "boards", BoardController, only: [:index, :create] do
-        resources "cards", CardController, only: [:show]
+      resources "/boards", BoardController, only: [:index, :create] do
+        resources "/cards", CardController, only: [:show]
       end
     end
   end
@@ -36,6 +36,6 @@ defmodule Flinc.Router do
   scope "/", Flinc do
     pipe_through :browser # Use the default browser stack
 
-    get "*path", PageController, :index
+    get "/*path", PageController, :index
   end
 end
