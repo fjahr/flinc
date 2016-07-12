@@ -14,11 +14,6 @@
 
   <body>
     <main id="main_container" role="main"></main>
-    <footer id="main_footer">
-      <small>
-        Built in Berlin
-      </small>
-    </footer>
     <script src="<%= static_path(@conn, "/js/application.js") %>"></script>
   </body>
 </html>
