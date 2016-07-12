@@ -96,7 +96,7 @@ export default class Card extends React.Component {
   }
 
   render() {
-    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name } = this.props;
+    const { id, connectDragSource, connectDropTarget, isDragging, isOver, name, type } = this.props;
 
     const styles = {
       display: isDragging ? 'none' : 'block',
@@ -104,8 +104,9 @@ export default class Card extends React.Component {
 
     const classes = classnames({
       'card': true,
-      'is-over': isOver
-    });
+      'is-over': isOver,
+    },
+    type);
 
     return connectDragSource(
       connectDropTarget(

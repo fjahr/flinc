@@ -26941,6 +26941,7 @@
 	  CURRENT_CARD_EDIT: 'CURRENT_CARD_EDIT',
 	  CURRENT_CARD_SHOW_MEMBERS_SELECTOR: 'CURRENT_CARD_SHOW_MEMBERS_SELECTOR',
 	  CURRENT_CARD_SHOW_TAGS_SELECTOR: 'CURRENT_CARD_SHOW_TAGS_SELECTOR',
+	  CURRENT_CARD_SHOW_TYPE_SELECTOR: 'CURRENT_CARD_SHOW_TYPE_SELECTOR',
 
 	  HEADER_SHOW_BOARDS: 'HEADER_SHOW_BOARDS'
 	};
@@ -27246,6 +27247,9 @@
 
 	    case _constants2.default.CURRENT_CARD_SHOW_TAGS_SELECTOR:
 	      return _extends({}, state, { showTagsSelector: action.show });
+
+	    case _constants2.default.CURRENT_CARD_SHOW_TYPE_SELECTOR:
+	      return _extends({}, state, { showTypeSelector: action.show });
 
 	    default:
 	      return state;
@@ -41016,6 +41020,7 @@
 	      return cards.map(function (card) {
 	        return _react2.default.createElement(_card2.default, _extends({
 	          key: card.id,
+	          type: card.type,
 	          dispatch: dispatch,
 	          boardId: boardId
 	        }, card, {
@@ -41495,6 +41500,7 @@
 	      var isDragging = _props3.isDragging;
 	      var isOver = _props3.isOver;
 	      var name = _props3.name;
+	      var type = _props3.type;
 
 
 	      var styles = {
@@ -41504,7 +41510,7 @@
 	      var classes = (0, _classnames2.default)({
 	        'card': true,
 	        'is-over': isOver
-	      });
+	      }, type);
 
 	      return connectDragSource(connectDropTarget(_react2.default.createElement(
 	        'div',
@@ -41587,6 +41593,15 @@
 	    };
 	  },
 
+	  showTypeSelector: function showTypeSelector(show) {
+	    return function (dispatch) {
+	      dispatch({
+	        type: _constants2.default.CURRENT_CARD_SHOW_TYPE_SELECTOR,
+	        show: show
+	      });
+	    };
+	  },
+
 	  showTagsSelector: function showTagsSelector(show) {
 	    return function (dispatch) {
 	      dispatch({
@@ -41611,6 +41626,12 @@
 	  updateTags: function updateTags(channel, cardId, tags) {
 	    return function (dispatch) {
 	      channel.push('card:update', { card: { id: cardId, tags: tags } });
+	    };
+	  },
+
+	  updateType: function updateType(channel, cardId, type) {
+	    return function (dispatch) {
+	      channel.push('card:update', { card: { id: cardId, type: type } });
 	    };
 	  }
 	};
@@ -42700,6 +42721,7 @@
 	      var edit = currentCard.edit;
 	      var showMembersSelector = currentCard.showMembersSelector;
 	      var showTagsSelector = currentCard.showTagsSelector;
+	      var showTypeSelector = currentCard.showTypeSelector;
 
 
 	      return _react2.default.createElement(_modal2.default, {
@@ -42711,6 +42733,7 @@
 	        card: card,
 	        edit: edit,
 	        showMembersSelector: showMembersSelector,
+	        showTypeSelector: showTypeSelector,
 	        showTagsSelector: showTagsSelector });
 	    }
 	  }]);
@@ -42777,6 +42800,10 @@
 	var _tags_selector = __webpack_require__(557);
 
 	var _tags_selector2 = _interopRequireDefault(_tags_selector);
+
+	var _type_selector = __webpack_require__(558);
+
+	var _type_selector2 = _interopRequireDefault(_type_selector);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43020,6 +43047,7 @@
 	            'div',
 	            { className: 'items-wrapper' },
 	            this._renderMembers.call(this),
+	            this._renderType.call(this),
 	            this._renderTags.call(this)
 	          ),
 	          _react2.default.createElement(
@@ -43064,6 +43092,29 @@
 	      );
 	    }
 	  }, {
+	    key: '_renderType',
+	    value: function _renderType() {
+	      var type = this.props.card.type;
+
+
+	      if (type === undefined) return false;
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: 'card-type' },
+	        _react2.default.createElement(
+	          'h5',
+	          null,
+	          'Type'
+	        ),
+	        _react2.default.createElement(
+	          'div',
+	          { key: type, className: 'type ' + type },
+	          type
+	        )
+	      );
+	    }
+	  }, {
 	    key: '_renderTags',
 	    value: function _renderTags() {
 	      var tags = this.props.card.tags;
@@ -43105,6 +43156,16 @@
 
 
 	      dispatch(_current_card2.default.showTagsSelector(true));
+	    }
+	  }, {
+	    key: '_handleShowTypeClick',
+	    value: function _handleShowTypeClick(e) {
+	      e.preventDefault();
+
+	      var dispatch = this.props.dispatch;
+
+
+	      dispatch(_current_card2.default.showTypeSelector(true));
 	    }
 	  }, {
 	    key: '_renderMembersSelector',
@@ -43165,12 +43226,42 @@
 	      dispatch(_current_card2.default.showTagsSelector(false));
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
+	    key: '_renderTypeSelector',
+	    value: function _renderTypeSelector() {
 	      var _props7 = this.props;
 	      var card = _props7.card;
-	      var boardMembers = _props7.boardMembers;
-	      var showMembersSelector = _props7.showMembersSelector;
+	      var showTypeSelector = _props7.showTypeSelector;
+	      var dispatch = _props7.dispatch;
+	      var channel = _props7.channel;
+
+	      console.log(card);
+	      var type = card.type;
+
+
+	      if (!showTypeSelector) return false;
+
+	      return _react2.default.createElement(_type_selector2.default, {
+	        channel: channel,
+	        cardId: card.id,
+	        dispatch: dispatch,
+	        selectedType: type,
+	        close: this._onTypeSelectorClose.bind(this) });
+	    }
+	  }, {
+	    key: '_onTypeSelectorClose',
+	    value: function _onTypeSelectorClose() {
+	      var dispatch = this.props.dispatch;
+
+
+	      dispatch(_current_card2.default.showTypeSelector(false));
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _props8 = this.props;
+	      var card = _props8.card;
+	      var boardMembers = _props8.boardMembers;
+	      var showMembersSelector = _props8.showMembersSelector;
 	      var members = card.members;
 
 
@@ -43219,7 +43310,14 @@
 	                  _react2.default.createElement('i', { className: 'fa fa-tag' }),
 	                  ' Tags'
 	                ),
-	                this._renderTagsSelector.call(this)
+	                this._renderTagsSelector.call(this),
+	                _react2.default.createElement(
+	                  'a',
+	                  { className: 'button', href: '#', onClick: this._handleShowTypeClick.bind(this) },
+	                  _react2.default.createElement('i', { className: 'fa fa-tag' }),
+	                  ' Type'
+	                ),
+	                this._renderTypeSelector.call(this)
 	              )
 	            )
 	          )
@@ -57348,6 +57446,156 @@
 
 
 	TagsSelector.propTypes = {};
+
+/***/ },
+/* 558 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.default = undefined;
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactPageClick = __webpack_require__(285);
+
+	var _reactPageClick2 = _interopRequireDefault(_reactPageClick);
+
+	var _reactGravatar = __webpack_require__(276);
+
+	var _reactGravatar2 = _interopRequireDefault(_reactGravatar);
+
+	var _classnames = __webpack_require__(293);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _current_card = __webpack_require__(443);
+
+	var _current_card2 = _interopRequireDefault(_current_card);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TypeSelector = function (_React$Component) {
+	  _inherits(TypeSelector, _React$Component);
+
+	  function TypeSelector() {
+	    _classCallCheck(this, TypeSelector);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TypeSelector).apply(this, arguments));
+	  }
+
+	  _createClass(TypeSelector, [{
+	    key: '_close',
+	    value: function _close(e) {
+	      e.preventDefault();
+
+	      this.props.close();
+	    }
+	  }, {
+	    key: '_changeType',
+	    value: function _changeType(type) {
+	      var _props = this.props;
+	      var dispatch = _props.dispatch;
+	      var channel = _props.channel;
+	      var cardId = _props.cardId;
+
+
+	      dispatch(_current_card2.default.updateType(channel, cardId, type));
+	    }
+	  }, {
+	    key: '_renderTypesList',
+	    value: function _renderTypesList() {
+	      var _this2 = this;
+
+	      var selectedType = this.props.selectedType;
+
+
+	      var types = ['bug', 'feature', 'improvement', 'task'];
+
+	      var typeNodes = types.map(function (type) {
+	        var isSelected = -1 != selectedType.indexOf(type);
+
+	        var handleOnClick = function handleOnClick(e) {
+	          e.preventDefault();
+
+	          return isSelected ? false : _this2._changeType(type);
+	        };
+
+	        var linkClasses = (0, _classnames2.default)({
+	          selected: isSelected
+	        });
+
+	        var iconClasses = (0, _classnames2.default)({
+	          fa: true,
+	          'fa-check': isSelected
+	        });
+
+	        var icon = _react2.default.createElement('i', { className: iconClasses });
+
+	        return _react2.default.createElement(
+	          'li',
+	          { key: type },
+	          _react2.default.createElement(
+	            'a',
+	            { className: 'type ' + type + ' ' + linkClasses, onClick: handleOnClick, href: '#' },
+	            type,
+	            ' ',
+	            icon
+	          )
+	        );
+	      });
+
+	      return _react2.default.createElement(
+	        'ul',
+	        null,
+	        typeNodes
+	      );
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        _reactPageClick2.default,
+	        { onClick: this._close.bind(this) },
+	        _react2.default.createElement(
+	          'div',
+	          { className: 'type-selector' },
+	          _react2.default.createElement(
+	            'header',
+	            null,
+	            'Type ',
+	            _react2.default.createElement(
+	              'a',
+	              { className: 'close', onClick: this._close.bind(this), href: '#' },
+	              _react2.default.createElement('i', { className: 'fa fa-close' })
+	            )
+	          ),
+	          this._renderTypesList.call(this)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return TypeSelector;
+	}(_react2.default.Component);
+
+	exports.default = TypeSelector;
+
+
+	TypeSelector.propTypes = {};
 
 /***/ }
 /******/ ]);

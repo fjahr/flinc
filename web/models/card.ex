@@ -3,13 +3,14 @@ defmodule Flinc.Card do
 
   alias Flinc.{Repo, List, Card, Comment, CardMember}
 
-  @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments, :tags, :members]}
+  @derive {Poison.Encoder, only: [:id, :list_id, :name, :description, :position, :comments, :tags, :members, :type]}
 
   schema "cards" do
     field :name, :string
     field :description, :string
     field :position, :integer
     field :tags, {:array, :string}
+    field :type, :string, default: "task"
 
     belongs_to :list, List
     has_many :comments, Comment
@@ -20,7 +21,9 @@ defmodule Flinc.Card do
   end
 
   @required_fields ~w(name list_id)
-  @optional_fields ~w(description position tags)
+  @optional_fields ~w(description position tags type)
+
+  @valid_types ~w(bug feature improvement task)
 
   @doc """
   Creates a changeset based on the `model` and `params`.
@@ -32,11 +35,13 @@ defmodule Flinc.Card do
     model
     |> cast(params, @required_fields, @optional_fields)
     |> calculate_position()
+    |> validate_inclusion(:type, @valid_types)
   end
 
   def update_changeset(model, params \\ %{}) do
     model
     |> cast(params, @required_fields, @optional_fields)
+    |> validate_inclusion(:type, @valid_types)
   end
 
   defp calculate_position(current_changeset) do
@@ -71,5 +76,4 @@ defmodule Flinc.Card do
       where: ub.user_id == ^user_id and b.id == ^board_id and c.id == ^card_id,
       preload: [comments: {co, user: cu }, members: me]
   end
-
 end

@@ -266,7 +266,16 @@
           background: #fff
           padding: $base-spacing/3
           border-radius: $base-border-radius
-          border: 1px solid $gray
+          border: 1px solid $light-gray
+
+        &.bug .card-content
+          border-left: 5px solid #ff0000
+
+        &.feature .card-content
+          border-left: 5px solid #009000
+
+        &.improvement .card-content
+          border-left: 5px solid #fff000
 
         .tags-wrapper
           +clearfix

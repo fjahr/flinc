@@ -74,6 +74,7 @@ export default class ListCard extends React.Component {
       return (
         <Card
           key={card.id}
+          type={card.type}
           dispatch={dispatch}
           boardId={boardId}
           {...card}

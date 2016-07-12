@@ -57,6 +57,20 @@ defmodule Flinc.IntegrationCase do
     |> Repo.preload([:user, :members, lists: :cards])
   end
 
+  def create_list(board) do
+    board
+    |> Ecto.build_assoc(:lists)
+    |> Flinc.List.changeset(%{name: "First list"})
+    |> Repo.insert!
+  end
+
+  def create_card(list) do
+    list
+    |> Ecto.build_assoc(:cards)
+    |> Flinc.Card.changeset(%{name: "First card"})
+    |> Repo.insert!
+  end
+
   def user_sign_in(%{user: user}) do
     navigate_to "/"
 

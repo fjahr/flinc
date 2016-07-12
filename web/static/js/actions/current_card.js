@@ -43,6 +43,15 @@ const Actions = {
     };
   },
 
+  showTypeSelector: (show) => {
+    return dispatch => {
+      dispatch({
+        type: Constants.CURRENT_CARD_SHOW_TYPE_SELECTOR,
+        show: show,
+      });
+    };
+  },
+
   showTagsSelector: (show) => {
     return dispatch => {
       dispatch({
@@ -67,6 +76,12 @@ const Actions = {
   updateTags: (channel, cardId, tags) => {
     return dispatch => {
       channel.push('card:update', { card: { id: cardId, tags: tags } });
+    };
+  },
+
+  updateType: (channel, cardId, type) => {
+    return dispatch => {
+      channel.push('card:update', { card: { id: cardId, type: type } });
     };
   },
 };

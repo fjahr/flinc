@@ -1135,7 +1135,13 @@ form .error, .form .error {
         background: #fff;
         padding: 0.5em;
         border-radius: 2px;
-        border: 1px solid #bdc3c7; }
+        border: 1px solid #dee1e3; }
+      .boards.show .lists-wrapper .list .card:not(.form).bug .card-content {
+        border-left: 5px solid #ff0000; }
+      .boards.show .lists-wrapper .list .card:not(.form).feature .card-content {
+        border-left: 5px solid #009000; }
+      .boards.show .lists-wrapper .list .card:not(.form).improvement .card-content {
+        border-left: 5px solid #fff000; }
       .boards.show .lists-wrapper .list .card:not(.form) .tags-wrapper::after {
         clear: both;
         content: "";
@@ -1177,7 +1183,7 @@ form .error, .form .error {
       margin-bottom: .5em;
       border: 1px solid #bdc3c7; }
 
-.members-selector, .tags-selector {
+.members-selector, .tags-selector, .type-selector {
   background: #fff;
   border: 1px solid #bdc3c7;
   border-radius: 2px;
@@ -1186,25 +1192,25 @@ form .error, .form .error {
   width: 18em;
   animation-duration: .3s;
   animation-name: fadeIn; }
-  .members-selector header, .tags-selector header {
+  .members-selector header, .tags-selector header, .type-selector header {
     border-bottom: 1px solid #dee1e3;
     margin-bottom: 0.75em;
     text-align: center;
     position: relative;
     padding-bottom: .5em; }
-    .members-selector header > .close, .tags-selector header > .close {
+    .members-selector header > .close, .tags-selector header > .close, .type-selector header > .close {
       position: absolute;
       right: 0;
       top: 0;
       line-height: 1em;
       color: #828385; }
-  .members-selector ul, .tags-selector ul {
+  .members-selector ul, .tags-selector ul, .type-selector ul {
     list-style: none;
     padding: 0;
     margin: 0; }
-    .members-selector ul li, .tags-selector ul li {
+    .members-selector ul li, .tags-selector ul li, .type-selector ul li {
       margin-bottom: 3px; }
-      .members-selector ul li a, .tags-selector ul li a {
+      .members-selector ul li a, .tags-selector ul li a, .type-selector ul li a {
         -webkit-transition: all 0.15s ease-out 0s;
         -moz-transition: all 0.15s ease-out 0s;
         transition: all 0.15s ease-out 0s;
@@ -1213,23 +1219,23 @@ form .error, .form .error {
         display: block;
         position: relative;
         color: #4c4e50; }
-        .members-selector ul li a.tag, .tags-selector ul li a.tag {
+        .members-selector ul li a.tag, .tags-selector ul li a.tag, .type-selector ul li a.tag {
           height: 2em; }
-          .members-selector ul li a.tag .fa, .tags-selector ul li a.tag .fa {
+          .members-selector ul li a.tag .fa, .tags-selector ul li a.tag .fa, .type-selector ul li a.tag .fa {
             color: #fff; }
-        .members-selector ul li a.tag.green:hover, .members-selector ul li a.tag.green.selected, .tags-selector ul li a.tag.green:hover, .tags-selector ul li a.tag.green.selected {
+        .members-selector ul li a.tag.green:hover, .members-selector ul li a.tag.green.selected, .tags-selector ul li a.tag.green:hover, .tags-selector ul li a.tag.green.selected, .type-selector ul li a.tag.green:hover, .type-selector ul li a.tag.green.selected {
           box-shadow: -8px 0 #4e973f; }
-        .members-selector ul li a.tag.yellow:hover, .members-selector ul li a.tag.yellow.selected, .tags-selector ul li a.tag.yellow:hover, .tags-selector ul li a.tag.yellow.selected {
+        .members-selector ul li a.tag.yellow:hover, .members-selector ul li a.tag.yellow.selected, .tags-selector ul li a.tag.yellow:hover, .tags-selector ul li a.tag.yellow.selected, .type-selector ul li a.tag.yellow:hover, .type-selector ul li a.tag.yellow.selected {
           box-shadow: -8px 0 #c2ab00; }
-        .members-selector ul li a.tag.orange:hover, .members-selector ul li a.tag.orange.selected, .tags-selector ul li a.tag.orange:hover, .tags-selector ul li a.tag.orange.selected {
+        .members-selector ul li a.tag.orange:hover, .members-selector ul li a.tag.orange.selected, .tags-selector ul li a.tag.orange:hover, .tags-selector ul li a.tag.orange.selected, .type-selector ul li a.tag.orange:hover, .type-selector ul li a.tag.orange.selected {
           box-shadow: -8px 0 #cc893b; }
-        .members-selector ul li a.tag.red:hover, .members-selector ul li a.tag.red.selected, .tags-selector ul li a.tag.red:hover, .tags-selector ul li a.tag.red.selected {
+        .members-selector ul li a.tag.red:hover, .members-selector ul li a.tag.red.selected, .tags-selector ul li a.tag.red:hover, .tags-selector ul li a.tag.red.selected, .type-selector ul li a.tag.red:hover, .type-selector ul li a.tag.red.selected {
           box-shadow: -8px 0 #bc4838; }
-        .members-selector ul li a.tag.purple:hover, .members-selector ul li a.tag.purple.selected, .tags-selector ul li a.tag.purple:hover, .tags-selector ul li a.tag.purple.selected {
+        .members-selector ul li a.tag.purple:hover, .members-selector ul li a.tag.purple.selected, .tags-selector ul li a.tag.purple:hover, .tags-selector ul li a.tag.purple.selected, .type-selector ul li a.tag.purple:hover, .type-selector ul li a.tag.purple.selected {
           box-shadow: -8px 0 #9c5fb3; }
-        .members-selector ul li a.tag.blue:hover, .members-selector ul li a.tag.blue.selected, .tags-selector ul li a.tag.blue:hover, .tags-selector ul li a.tag.blue.selected {
+        .members-selector ul li a.tag.blue:hover, .members-selector ul li a.tag.blue.selected, .tags-selector ul li a.tag.blue:hover, .tags-selector ul li a.tag.blue.selected, .type-selector ul li a.tag.blue:hover, .type-selector ul li a.tag.blue.selected {
           box-shadow: -8px 0 #006199; }
-        .members-selector ul li a .fa, .tags-selector ul li a .fa {
+        .members-selector ul li a .fa, .tags-selector ul li a .fa, .type-selector ul li a .fa {
           -webkit-transform: translateY(-50%);
           -moz-transform: translateY(-50%);
           -ms-transform: translateY(-50%);
@@ -1238,10 +1244,10 @@ form .error, .form .error {
           position: absolute;
           right: 0.5em;
           top: 50%; }
-        .members-selector ul li a:not(.tag):hover, .tags-selector ul li a:not(.tag):hover {
+        .members-selector ul li a:not(.tag):hover, .tags-selector ul li a:not(.tag):hover, .type-selector ul li a:not(.tag):hover {
           background: #3498db;
           color: #fff; }
-    .members-selector ul .react-gravatar, .tags-selector ul .react-gravatar {
+    .members-selector ul .react-gravatar, .tags-selector ul .react-gravatar, .type-selector ul .react-gravatar {
       border-radius: 2px;
       width: 30px;
       height: 30px;

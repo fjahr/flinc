@@ -38,6 +38,9 @@ export default function reducer(state = initialState, action = {}) {
     case Constants.CURRENT_CARD_SHOW_TAGS_SELECTOR:
       return { ...state, showTagsSelector: action.show };
 
+    case Constants.CURRENT_CARD_SHOW_TYPE_SELECTOR:
+      return { ...state, showTypeSelector: action.show };
+
     default:
       return state;
   }

@@ -28,6 +28,20 @@ defmodule Flinc.CardTest do
     refute changeset.valid?
   end
 
+  test "default type is set", %{list: list} do
+    card = Card.changeset(%Card{list_id: list.id}, @valid_attrs)
+           |> Repo.insert!
+
+    assert card.type == "task"
+  end
+
+  test "invalid type is not allowed", %{list: list} do
+    changeset = Card.changeset(%Card{list_id: list.id, name: "name"}, %{type: "not allowed"})
+
+    refute changeset.valid?
+    assert changeset.errors[:type] == {"is invalid", []}
+  end
+
   test "existing cards for the same list", %{list: list} do
     count = 3
 

@@ -8,6 +8,7 @@ import Actions            from '../../actions/current_card';
 import BoardActions       from '../../actions/current_board';
 import MembersSelector    from './members_selector';
 import TagsSelector       from './tags_selector';
+import TypeSelector       from './type_selector';
 
 export default class CardModal extends React.Component {
   componentDidUpdate() {
@@ -153,6 +154,7 @@ export default class CardModal extends React.Component {
           <h3>{card.name}</h3>
           <div className="items-wrapper">
             {::this._renderMembers()}
+            {::this._renderType()}
             {::this._renderTags()}
           </div>
           <h5>Description</h5>
@@ -176,6 +178,19 @@ export default class CardModal extends React.Component {
       <div className="card-members">
       <h5>Members</h5>
         {memberNodes}
+      </div>
+    );
+  }
+
+  _renderType() {
+    const { type } = this.props.card;
+
+    if (type === undefined) return false;
+
+    return (
+      <div className="card-type">
+      <h5>Type</h5>
+        <div key={type} className={`type ${type}`}>{type}</div>
       </div>
     );
   }
@@ -211,6 +226,14 @@ export default class CardModal extends React.Component {
     const { dispatch } = this.props;
 
     dispatch(Actions.showTagsSelector(true));
+  }
+
+  _handleShowTypeClick(e) {
+    e.preventDefault();
+
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showTypeSelector(true));
   }
 
   _renderMembersSelector() {
@@ -258,6 +281,29 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTagsSelector(false));
   }
 
+  _renderTypeSelector() {
+    const { card, showTypeSelector, dispatch, channel } = this.props;
+    console.log(card);
+    const { type } = card;
+
+    if (!showTypeSelector) return false;
+
+    return (
+      <TypeSelector
+        channel={channel}
+        cardId={card.id}
+        dispatch={dispatch}
+        selectedType={type}
+        close={::this._onTypeSelectorClose} />
+    );
+  }
+
+  _onTypeSelectorClose() {
+    const { dispatch } = this.props;
+
+    dispatch(Actions.showTypeSelector(false));
+  }
+
   render() {
     const { card, boardMembers, showMembersSelector } = this.props;
     const { members } = card;
@@ -285,6 +331,10 @@ export default class CardModal extends React.Component {
                   <i className="fa fa-tag"/> Tags
                 </a>
                 {::this._renderTagsSelector()}
+                <a className="button" href="#" onClick={::this._handleShowTypeClick}>
+                  <i className="fa fa-tag"/> Type
+                </a>
+                {::this._renderTypeSelector()}
               </div>
             </div>
           </PageClick>
