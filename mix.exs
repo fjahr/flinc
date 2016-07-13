@@ -28,7 +28,8 @@ defmodule Flinc.Mixfile do
        :postgrex,
        :comeonin,
        :ex_machina,
-       :phoenix_pubsub
+       :phoenix_pubsub,
+        :ex_admin
      ]]
   end
 
@@ -56,7 +57,8 @@ defmodule Flinc.Mixfile do
       {:exactor, "~> 2.2.0"},
       {:hound, "~> 1.0"},
       {:guardian_db, "~> 0.7.0"},
-      {:mix_test_watch, "~> 0.2", only: :dev}
+      {:mix_test_watch, "~> 0.2", only: :dev},
+      {:ex_admin, github: "smpallen99/ex_admin"}
     ]
   end
 

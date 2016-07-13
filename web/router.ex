@@ -1,5 +1,6 @@
 defmodule Flinc.Router do
   use Flinc.Web, :router
+  use ExAdmin.Router
 
   pipeline :browser do
     plug :accepts, ["html"]
@@ -31,6 +32,11 @@ defmodule Flinc.Router do
         resources "/cards", CardController, only: [:show]
       end
     end
+  end
+
+  scope "/admin", ExAdmin do
+    pipe_through :browser
+    admin_routes
   end
 
   scope "/", Flinc do

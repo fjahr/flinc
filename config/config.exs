@@ -51,3 +51,16 @@ config :guardian_db, GuardianDb,
   sweep_interval: 1440
 
 config :flinc, ecto_repos: [Flinc.Repo]
+
+config :ex_admin,
+  repo: Flinc.Repo,
+  module: Flinc,
+  modules: [
+    Flinc.ExAdmin.Dashboard,
+    Flinc.ExAdmin.User,
+    Flinc.ExAdmin.Board,
+    Flinc.ExAdmin.List,
+    Flinc.ExAdmin.Card
+  ]
+
+config :xain, :after_callback, {Phoenix.HTML, :raw}
