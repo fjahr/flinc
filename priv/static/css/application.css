@@ -362,7 +362,7 @@ html {
   html body {
     height: 100vh; }
     html body #main_container {
-      height: calc(100% - 40px); }
+      height: 100%; }
       html body #main_container > div {
         height: 100%; }
     html body #main_footer {
@@ -387,11 +387,11 @@ html {
       display: -moz-flex;
       display: -ms-flexbox;
       display: flex;
-      height: calc(100% - 65px); }
+      height: calc(100% - 90px); }
       html body .main-container .view-container {
         flex: 1;
         padding: 0 1.5em;
-        height: calc(100% - 3em); }
+        height: 100%; }
         html body .main-container .view-container .view-header {
           padding: 0.75em 0; }
           html body .main-container .view-container .view-header h3 {
@@ -1017,7 +1017,7 @@ form .error, .form .error {
 
 .boards.show .canvas-wrapper {
   position: relative;
-  height: calc(100% - 1em); }
+  height: 100%; }
   .boards.show .canvas-wrapper .canvas {
     position: absolute;
     top: 0;
