@@ -6,7 +6,12 @@ $header-height: $base-line-height * 1.8em
   line-height: $header-height
   padding: 0 $base-spacing
   color: #fff
-  position: relative
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 40px;
 
   .logo
     +transform(translate(-50%, -50%))
