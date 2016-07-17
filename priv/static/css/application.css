@@ -377,8 +377,6 @@ html {
           color: #bdc3c7; }
           html body #main_footer small a:hover {
             color: #fff; }
-    html body .application-container {
-      height: 100vh; }
     html body .main-container {
       display: -webkit-box;
       display: -moz-box;
