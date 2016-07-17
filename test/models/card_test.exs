@@ -59,4 +59,14 @@ defmodule Flinc.CardTest do
 
     assert last_card.position == 1024 * count
   end
+
+  test "card position is not an integer", %{list: list} do
+   card = Card.changeset(%Card{list_id: list.id}, @valid_attrs)
+           |> Repo.insert!
+
+   Card.update_changeset(card, %{position: 1.5})
+   |> Repo.update
+
+    assert card.position == 1024
+  end
 end
