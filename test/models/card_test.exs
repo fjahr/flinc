@@ -5,13 +5,13 @@ defmodule Flinc.CardTest do
 
   alias Flinc.{Card}
 
-  @valid_attrs %{name: "some content"}
+  @valid_attrs %{name: "some content", tags: []}
   @invalid_attrs %{}
 
   setup do
-    user = create(:user)
-    board = create(:board, %{user_id: user.id})
-    list = create(:list, %{board_id: board.id})
+    user = insert(:user)
+    board = insert(:board, user: user)
+    list = insert(:list, board: board)
 
     {:ok, list: list}
   end
@@ -68,5 +68,20 @@ defmodule Flinc.CardTest do
    |> Repo.update
 
     assert card.position == 1024
+  end
+
+  test "deleted cards are not returned by default scope", %{list: list} do
+    card = Card.changeset(%Card{list_id: list.id}, @valid_attrs)
+           |> Repo.insert!
+
+    cards = Repo.all(Card.active)
+    assert Enum.member?(cards, card)
+
+    Card.delete(card)
+    deleted_card = Repo.get(Card, card.id)
+
+    cards = Repo.all(Card.active)
+    refute Enum.member?(cards, deleted_card)
+    assert cards == []
   end
 end

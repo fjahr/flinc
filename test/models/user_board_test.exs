@@ -9,8 +9,8 @@ defmodule Flinc.UserBoardTest do
   @invalid_attrs %{}
 
   setup do
-    user = create(:user)
-    board = create(:board)
+    user = insert(:user)
+    board = insert(:board)
 
     {:ok, user: user, board: board}
   end

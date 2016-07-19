@@ -3,7 +3,7 @@ defmodule Flinc.Repo.Migrations.AddPositionToLists do
 
   def change do
     alter table(:lists) do
-      add :position, :integer, defaul: 0
+      add :position, :integer, default: 0
     end
   end
 end

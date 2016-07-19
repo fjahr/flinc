@@ -11,6 +11,7 @@ defmodule Flinc.Card do
     field :position, :integer
     field :tags, {:array, :string}
     field :type, :string, default: "task"
+    field :deleted_at, Ecto.DateTime
 
     belongs_to :list, List
     has_many :comments, Comment
@@ -62,7 +63,7 @@ defmodule Flinc.Card do
   def preload_all(query \\ %Card{}) do
     comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
 
-    from c in query, preload: [:members, [comments: ^comments_query]]
+    from c in query, where: is_nil(c.deleted_at), preload: [:members, [comments: ^comments_query]]
   end
 
   def get_by_user_and_board(query \\ %Card{}, card_id, user_id, board_id) do
@@ -75,5 +76,15 @@ defmodule Flinc.Card do
       join: ub in assoc(b, :user_boards),
       where: ub.user_id == ^user_id and b.id == ^board_id and c.id == ^card_id,
       preload: [comments: {co, user: cu }, members: me]
+  end
+
+  def delete(card) do
+    changeset = Ecto.Changeset.change card, deleted_at: Ecto.DateTime.utc(:sec)
+    Repo.update(changeset)
+  end
+
+  def active(query \\ Card) do
+    from c in query,
+      where: is_nil(c.deleted_at)
   end
 end

@@ -9,7 +9,7 @@ defmodule Flinc.BoardTest do
   @invalid_attrs %{}
 
   test "changeset with valid attributes" do
-    user = create(:user)
+    user = insert(:user)
     attributes = @valid_attrs
       |> Map.put(:user_id, user.id)
 

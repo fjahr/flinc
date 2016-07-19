@@ -9,7 +9,7 @@ defmodule Flinc.ListTest do
   @invalid_attrs %{}
 
   setup do
-    {:ok, board: create(:board)}
+    {:ok, board: insert(:board)}
   end
 
   test "changeset with valid attributes", %{board: board} do
