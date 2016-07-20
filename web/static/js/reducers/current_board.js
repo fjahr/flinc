@@ -44,12 +44,24 @@ export default function reducer(state = initialState, action = {}) {
 
     case Constants.CURRENT_BOARD_CARD_CREATED:
       lists = state.lists;
-      const { card } = action;
+      var { card } = action;
 
-      const listIndex = lists.findIndex((list) => { return list.id == card.list_id; });
+      var listIndex = lists.findIndex((list) => { return list.id == card.list_id; });
       lists[listIndex].cards.push(card);
 
       return { ...state, lists: lists };
+
+    case Constants.CURRENT_BOARD_CARD_ARCHIVED:
+      lists = state.lists;
+      var { card } = action;
+
+      var listIndex = lists.findIndex((list) => { return list.id == card.list_id; });
+
+      const cardIndex = lists[listIndex].cards.indexOf(card);
+      lists[listIndex].cards.splice(cardIndex, 1);
+
+      return { ...state, lists: lists };
+
 
     case Constants.CURRENT_BOARD_MEMBER_ADDED:
       const { members } = state;

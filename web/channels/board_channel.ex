@@ -64,6 +64,25 @@ defmodule Flinc.BoardChannel do
     end
   end
 
+  def handle_in("card:archive", %{"card" => card_params}, socket) do
+    card = Repo.get!(Card, card_params["id"])
+
+
+
+
+    case Card.archive(card) do
+      {:ok, card} ->
+        card = Card
+        |> Card.preload_all_with_archived
+        |> Repo.get(card.id)
+
+        broadcast! socket, "card:archived", %{card: card}
+        {:noreply, socket}
+      {:error, _changeset} ->
+        {:reply, {:error, %{error: "Error archiving card"}}, socket}
+    end
+  end
+
   def handle_in("members:add", %{"email" => email}, socket) do
     try do
       board = socket.assigns.board

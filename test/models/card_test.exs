@@ -70,18 +70,18 @@ defmodule Flinc.CardTest do
     assert card.position == 1024
   end
 
-  test "deleted cards are not returned by default scope", %{list: list} do
+  test "archived cards are not returned by default scope", %{list: list} do
     card = Card.changeset(%Card{list_id: list.id}, @valid_attrs)
            |> Repo.insert!
 
     cards = Repo.all(Card.active)
     assert Enum.member?(cards, card)
 
-    Card.delete(card)
-    deleted_card = Repo.get(Card, card.id)
+    Card.archive(card)
+    archived_card = Repo.get(Card, card.id)
 
     cards = Repo.all(Card.active)
-    refute Enum.member?(cards, deleted_card)
+    refute Enum.member?(cards, archived_card)
     assert cards == []
   end
 end

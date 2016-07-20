@@ -73,6 +73,12 @@ const Actions = {
     };
   },
 
+  archiveCard: (channel, card) => {
+    return dispatch => {
+      channel.push('card:archive', { card: card });
+    };
+  },
+
   updateTags: (channel, cardId, tags) => {
     return dispatch => {
       channel.push('card:update', { card: { id: cardId, tags: tags } });

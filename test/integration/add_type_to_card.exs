@@ -27,14 +27,14 @@ defmodule Flinc.AddTypeToCard do
     |> find_within_element(:id, "type-selector-button")
     |> click
 
-    type_selector = find_element(:class, "type-selector")
+    assert element_displayed?({:class, "type-selector"})
 
-    type_selector
-    |> find_within_element(:id, "bug-type-selector")
+    find_element(:class, "type-selector")
+    |> find_within_element(:id, "bug-type-select")
     |> click
 
     card_modal
-    |> find_within_element(:id, "close-modal")
+    |> find_within_element(:class, "close")
     |> click
 
     assert element_displayed?({:class, "bug"})

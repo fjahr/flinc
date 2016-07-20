@@ -66,6 +66,12 @@ defmodule Flinc.Card do
     from c in query, where: is_nil(c.deleted_at), preload: [:members, [comments: ^comments_query]]
   end
 
+  def preload_all_with_archived(query \\ %Card{}) do
+    comments_query = from c in Comment, order_by: [desc: c.inserted_at], preload: :user
+
+    from c in query, preload: [:members, [comments: ^comments_query]]
+  end
+
   def get_by_user_and_board(query \\ %Card{}, card_id, user_id, board_id) do
     from c in query,
       left_join: co in assoc(c, :comments),
@@ -78,9 +84,9 @@ defmodule Flinc.Card do
       preload: [comments: {co, user: cu }, members: me]
   end
 
-  def delete(card) do
+  def archive(card) do
     changeset = Ecto.Changeset.change card, deleted_at: Ecto.DateTime.utc(:sec)
-    Repo.update(changeset)
+    return = Repo.update(changeset)
   end
 
   def active(query \\ Card) do

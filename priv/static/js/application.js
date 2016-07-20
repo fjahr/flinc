@@ -26923,6 +26923,7 @@
 	  CURRENT_BOARD_RESET: 'CURRENT_BOARD_RESET',
 	  CURRENT_BOARD_LIST_CREATED: 'CURRENT_BOARD_LIST_CREATED',
 	  CURRENT_BOARD_CARD_CREATED: 'CURRENT_BOARD_CARD_CREATED',
+	  CURRENT_BOARD_CARD_ARCHIVED: 'CURRENT_BOARD_CARD_ARCHIVED',
 	  CURRENT_BOARD_SHOW_FORM: 'CURRENT_BOARD_SHOW_FORM',
 	  CURRENT_BOARD_SHOW_MEMBERS_FORM: 'CURRENT_BOARD_SHOW_MEMBERS_FORM',
 	  CURRENT_BOARD_MEMBER_ADDED: 'CURRENT_BOARD_MEMBER_ADDED',
@@ -27064,8 +27065,6 @@
 	  value: true
 	});
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	exports.default = reducer;
@@ -27093,97 +27092,79 @@
 
 	  var lists = void 0;
 
-	  var _ret = function () {
-	    switch (action.type) {
-	      case _constants2.default.CURRENT_BOARD_FETCHING:
-	        return {
-	          v: _extends({}, state, { fetching: true })
-	        };
+	  switch (action.type) {
+	    case _constants2.default.CURRENT_BOARD_FETCHING:
+	      return _extends({}, state, { fetching: true });
 
-	      case _constants2.default.BOARDS_SET_CURRENT_BOARD:
-	        return {
-	          v: _extends({}, state, { editingListId: null, fetching: false }, action.board)
-	        };
+	    case _constants2.default.BOARDS_SET_CURRENT_BOARD:
+	      return _extends({}, state, { editingListId: null, fetching: false }, action.board);
 
-	      case _constants2.default.CURRENT_BOARD_CONNECTED_USERS:
-	        return {
-	          v: _extends({}, state, { connectedUsers: action.users })
-	        };
+	    case _constants2.default.CURRENT_BOARD_CONNECTED_USERS:
+	      return _extends({}, state, { connectedUsers: action.users });
 
-	      case _constants2.default.CURRENT_BOARD_CONNECTED_TO_CHANNEL:
-	        return {
-	          v: _extends({}, state, { channel: action.channel })
-	        };
+	    case _constants2.default.CURRENT_BOARD_CONNECTED_TO_CHANNEL:
+	      return _extends({}, state, { channel: action.channel });
 
-	      case _constants2.default.CURRENT_BOARD_SHOW_FORM:
-	        return {
-	          v: _extends({}, state, { showForm: action.show })
-	        };
+	    case _constants2.default.CURRENT_BOARD_SHOW_FORM:
+	      return _extends({}, state, { showForm: action.show });
 
-	      case _constants2.default.CURRENT_BOARD_SHOW_MEMBERS_FORM:
-	        return {
-	          v: _extends({}, state, { showUsersForm: action.show, error: false })
-	        };
+	    case _constants2.default.CURRENT_BOARD_SHOW_MEMBERS_FORM:
+	      return _extends({}, state, { showUsersForm: action.show, error: false });
 
-	      case _constants2.default.CURRENT_BOARD_RESET:
-	        return {
-	          v: initialState
-	        };
+	    case _constants2.default.CURRENT_BOARD_RESET:
+	      return initialState;
 
-	      case _constants2.default.CURRENT_BOARD_LIST_CREATED:
-	        lists = state.lists;
-	        lists.push(action.list);
+	    case _constants2.default.CURRENT_BOARD_LIST_CREATED:
+	      lists = state.lists;
+	      lists.push(action.list);
 
-	        return {
-	          v: _extends({}, state, { lists: lists, showForm: false })
-	        };
+	      return _extends({}, state, { lists: lists, showForm: false });
 
-	      case _constants2.default.CURRENT_BOARD_CARD_CREATED:
-	        lists = state.lists;
-	        var card = action.card;
+	    case _constants2.default.CURRENT_BOARD_CARD_CREATED:
+	      lists = state.lists;
+	      var card = action.card;
 
 
-	        var listIndex = lists.findIndex(function (list) {
-	          return list.id == card.list_id;
-	        });
-	        lists[listIndex].cards.push(card);
+	      var listIndex = lists.findIndex(function (list) {
+	        return list.id == card.list_id;
+	      });
+	      lists[listIndex].cards.push(card);
 
-	        return {
-	          v: _extends({}, state, { lists: lists })
-	        };
+	      return _extends({}, state, { lists: lists });
 
-	      case _constants2.default.CURRENT_BOARD_MEMBER_ADDED:
-	        var members = state.members;
+	    case _constants2.default.CURRENT_BOARD_CARD_ARCHIVED:
+	      lists = state.lists;
+	      var card = action.card;
 
-	        members.push(action.user);
 
-	        return {
-	          v: _extends({}, state, { members: members, showUsersForm: false })
-	        };
+	      var listIndex = lists.findIndex(function (list) {
+	        return list.id == card.list_id;
+	      });
 
-	      case _constants2.default.CURRENT_BOARD_ADD_MEMBER_ERROR:
-	        return {
-	          v: _extends({}, state, { error: action.error })
-	        };
+	      var cardIndex = lists[listIndex].cards.indexOf(card);
+	      lists[listIndex].cards.splice(cardIndex, 1);
 
-	      case _constants2.default.CURRENT_BOARD_EDIT_LIST:
-	        return {
-	          v: _extends({}, state, { editingListId: action.listId })
-	        };
+	      return _extends({}, state, { lists: lists });
 
-	      case _constants2.default.CURRENT_BOARD_SHOW_CARD_FORM_FOR_LIST:
-	        return {
-	          v: _extends({}, state, { addingNewCardInListId: action.listId })
-	        };
+	    case _constants2.default.CURRENT_BOARD_MEMBER_ADDED:
+	      var members = state.members;
 
-	      default:
-	        return {
-	          v: state
-	        };
-	    }
-	  }();
+	      members.push(action.user);
 
-	  if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
+	      return _extends({}, state, { members: members, showUsersForm: false });
+
+	    case _constants2.default.CURRENT_BOARD_ADD_MEMBER_ERROR:
+	      return _extends({}, state, { error: action.error });
+
+	    case _constants2.default.CURRENT_BOARD_EDIT_LIST:
+	      return _extends({}, state, { editingListId: action.listId });
+
+	    case _constants2.default.CURRENT_BOARD_SHOW_CARD_FORM_FOR_LIST:
+	      return _extends({}, state, { addingNewCardInListId: action.listId });
+
+	    default:
+	      return state;
+	  }
 	}
 
 /***/ },
@@ -28810,7 +28791,7 @@
 /* 270 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var require;var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
+	var __WEBPACK_AMD_DEFINE_RESULT__;var require;/* WEBPACK VAR INJECTION */(function(process, global, module) {/*!
 	 * @overview es6-promise - a tiny implementation of Promises/A+.
 	 * @copyright Copyright (c) 2014 Yehuda Katz, Tom Dale, Stefan Penner and contributors (Conversion to ES6 API by Jake Archibald)
 	 * @license   Licensed under MIT license
@@ -29864,6 +29845,13 @@
 	      channel.on('card:created', function (msg) {
 	        dispatch({
 	          type: _constants2.default.CURRENT_BOARD_CARD_CREATED,
+	          card: msg.card
+	        });
+	      });
+
+	      channel.on('card:archived', function (msg) {
+	        dispatch({
+	          type: _constants2.default.CURRENT_BOARD_CARD_ARCHIVED,
 	          card: msg.card
 	        });
 	      });
@@ -41623,6 +41611,12 @@
 	    };
 	  },
 
+	  archiveCard: function archiveCard(channel, card) {
+	    return function (dispatch) {
+	      channel.push('card:archive', { card: card });
+	    };
+	  },
+
 	  updateTags: function updateTags(channel, cardId, tags) {
 	    return function (dispatch) {
 	      channel.push('card:update', { card: { id: cardId, tags: tags } });
@@ -43168,14 +43162,29 @@
 	      dispatch(_current_card2.default.showTypeSelector(true));
 	    }
 	  }, {
-	    key: '_renderMembersSelector',
-	    value: function _renderMembersSelector() {
+	    key: '_handleArchiveClick',
+	    value: function _handleArchiveClick(e) {
+	      e.preventDefault();
+
 	      var _props5 = this.props;
 	      var card = _props5.card;
-	      var boardMembers = _props5.boardMembers;
-	      var showMembersSelector = _props5.showMembersSelector;
 	      var dispatch = _props5.dispatch;
 	      var channel = _props5.channel;
+	      var boardId = _props5.boardId;
+
+
+	      dispatch(_current_card2.default.archiveCard(channel, card));
+	      dispatch((0, _reactRouterRedux.push)('/boards/' + boardId));
+	    }
+	  }, {
+	    key: '_renderMembersSelector',
+	    value: function _renderMembersSelector() {
+	      var _props6 = this.props;
+	      var card = _props6.card;
+	      var boardMembers = _props6.boardMembers;
+	      var showMembersSelector = _props6.showMembersSelector;
+	      var dispatch = _props6.dispatch;
+	      var channel = _props6.channel;
 	      var members = card.members;
 
 
@@ -43200,11 +43209,11 @@
 	  }, {
 	    key: '_renderTagsSelector',
 	    value: function _renderTagsSelector() {
-	      var _props6 = this.props;
-	      var card = _props6.card;
-	      var showTagsSelector = _props6.showTagsSelector;
-	      var dispatch = _props6.dispatch;
-	      var channel = _props6.channel;
+	      var _props7 = this.props;
+	      var card = _props7.card;
+	      var showTagsSelector = _props7.showTagsSelector;
+	      var dispatch = _props7.dispatch;
+	      var channel = _props7.channel;
 	      var tags = card.tags;
 
 
@@ -43228,11 +43237,11 @@
 	  }, {
 	    key: '_renderTypeSelector',
 	    value: function _renderTypeSelector() {
-	      var _props7 = this.props;
-	      var card = _props7.card;
-	      var showTypeSelector = _props7.showTypeSelector;
-	      var dispatch = _props7.dispatch;
-	      var channel = _props7.channel;
+	      var _props8 = this.props;
+	      var card = _props8.card;
+	      var showTypeSelector = _props8.showTypeSelector;
+	      var dispatch = _props8.dispatch;
+	      var channel = _props8.channel;
 
 	      console.log(card);
 	      var type = card.type;
@@ -43258,10 +43267,10 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _props8 = this.props;
-	      var card = _props8.card;
-	      var boardMembers = _props8.boardMembers;
-	      var showMembersSelector = _props8.showMembersSelector;
+	      var _props9 = this.props;
+	      var card = _props9.card;
+	      var boardMembers = _props9.boardMembers;
+	      var showMembersSelector = _props9.showMembersSelector;
 	      var members = card.members;
 
 
@@ -43307,17 +43316,23 @@
 	                _react2.default.createElement(
 	                  'a',
 	                  { className: 'button', href: '#', onClick: this._handleShowTagsClick.bind(this) },
-	                  _react2.default.createElement('i', { className: 'fa fa-tag' }),
+	                  _react2.default.createElement('i', { className: 'fa fa-tags' }),
 	                  ' Tags'
 	                ),
 	                this._renderTagsSelector.call(this),
 	                _react2.default.createElement(
 	                  'a',
-	                  { className: 'button', href: '#', onClick: this._handleShowTypeClick.bind(this) },
+	                  { className: 'button', id: 'type-selector-button', href: '#', onClick: this._handleShowTypeClick.bind(this) },
 	                  _react2.default.createElement('i', { className: 'fa fa-tag' }),
 	                  ' Type'
 	                ),
-	                this._renderTypeSelector.call(this)
+	                this._renderTypeSelector.call(this),
+	                _react2.default.createElement(
+	                  'a',
+	                  { className: 'button', id: 'archive-button', href: '#', onClick: this._handleArchiveClick.bind(this) },
+	                  _react2.default.createElement('i', { className: 'fa fa-archive' }),
+	                  ' Archive'
+	                )
 	              )
 	            )
 	          )
@@ -57550,7 +57565,7 @@
 	          { key: type },
 	          _react2.default.createElement(
 	            'a',
-	            { className: 'type ' + type + ' ' + linkClasses, onClick: handleOnClick, href: '#' },
+	            { className: 'type ' + type + ' ' + linkClasses, id: type + '-type-select', onClick: handleOnClick, href: '#' },
 	            type,
 	            ' ',
 	            icon

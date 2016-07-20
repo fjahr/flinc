@@ -15,4 +15,3 @@ export default function configureStore(browserHistory) {
 
   return createStoreWithMiddleware(reducers);
 }
-

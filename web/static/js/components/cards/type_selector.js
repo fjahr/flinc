@@ -45,7 +45,7 @@ export default class TypeSelector extends React.Component {
 
       return (
         <li key={type}>
-          <a className={`type ${type} ${linkClasses}`} onClick={handleOnClick} href="#">
+          <a className={`type ${type} ${linkClasses}`} id={`${type}-type-select`} onClick={handleOnClick} href="#">
             {type} {icon}
           </a>
         </li>

@@ -51,6 +51,13 @@ const Actions = {
         });
       });
 
+      channel.on('card:archived', (msg) => {
+        dispatch({
+          type: Constants.CURRENT_BOARD_CARD_ARCHIVED,
+          card: msg.card,
+        });
+      });
+
       channel.on('member:added', (msg) => {
         dispatch({
           type: Constants.CURRENT_BOARD_MEMBER_ADDED,

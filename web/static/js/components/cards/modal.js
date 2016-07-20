@@ -236,6 +236,15 @@ export default class CardModal extends React.Component {
     dispatch(Actions.showTypeSelector(true));
   }
 
+  _handleArchiveClick(e) {
+    e.preventDefault();
+
+    const { card, dispatch, channel, boardId } = this.props;
+
+    dispatch(Actions.archiveCard(channel, card));
+    dispatch(push(`/boards/${boardId}`));
+  }
+
   _renderMembersSelector() {
     const { card, boardMembers, showMembersSelector, dispatch, channel } = this.props;
     const { members } = card;
@@ -328,13 +337,16 @@ export default class CardModal extends React.Component {
                 </a>
                 {::this._renderMembersSelector()}
                 <a className="button" href="#" onClick={::this._handleShowTagsClick}>
-                  <i className="fa fa-tag"/> Tags
+                  <i className="fa fa-tags"/> Tags
                 </a>
                 {::this._renderTagsSelector()}
-                <a className="button" href="#" onClick={::this._handleShowTypeClick}>
+                <a className="button" id="type-selector-button" href="#" onClick={::this._handleShowTypeClick}>
                   <i className="fa fa-tag"/> Type
                 </a>
                 {::this._renderTypeSelector()}
+                <a className="button" id="archive-button" href="#" onClick={::this._handleArchiveClick}>
+                  <i className="fa fa-archive"/> Archive
+                </a>
               </div>
             </div>
           </PageClick>
