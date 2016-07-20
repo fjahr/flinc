@@ -29,8 +29,7 @@ defmodule Flinc.Mixfile do
        :comeonin,
        :ex_machina,
        :phoenix_pubsub,
-       :ex_admin,
-       :timex_ecto
+       :ex_admin
      ]]
   end
 
@@ -60,8 +59,6 @@ defmodule Flinc.Mixfile do
       {:guardian_db, "~> 0.7.0"},
       {:mix_test_watch, "~> 0.2", only: :dev},
       {:ex_admin, github: "smpallen99/ex_admin"},
-      {:timex, "~> 3.0"},
-      {:timex_ecto, "~> 3.0"},
       {:ecto, "~> 2.0", override: true}
     ]
   end
